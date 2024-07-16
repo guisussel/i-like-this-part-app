@@ -12,17 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.sussel.ilikethispart.ui.theme.ILikeThisPartTheme
+import com.sussel.ilikethispart.view.SongPartItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             ILikeThisPartTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    SongPartItem(
+
                     )
                 }
             }
