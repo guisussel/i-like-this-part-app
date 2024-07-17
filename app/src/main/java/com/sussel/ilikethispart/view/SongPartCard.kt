@@ -14,12 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.sharp.FavoriteBorder
-import androidx.compose.material.icons.sharp.PlayArrow
-import androidx.compose.material.icons.sharp.Settings
-import androidx.compose.material.icons.sharp.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -48,11 +41,13 @@ import androidx.compose.ui.unit.sp
 import com.sussel.ilikethispart.R
 import kotlin.random.Random
 
+
 @Preview(showBackground = true)
 @Composable
 fun SongPartItem() {
 
     var isPlaying by remember { mutableStateOf(false) }
+    var isMute by remember { mutableStateOf(false) }
     val image: Painter = painterResource(id = R.drawable.vinyl_cover)
     var sliderPosition by remember { mutableFloatStateOf(Random.nextDouble(1.0, 10.0).toFloat()) }
 
@@ -102,14 +97,14 @@ fun SongPartItem() {
                     )
                     IconButton(onClick = { /* Share */ }) {
                         Icon(
-                            imageVector = Icons.Sharp.Share,
-                            contentDescription = null,
+                            painter = painterResource(id = R.drawable.ic_share),
+                            contentDescription = "share",
                         )
                     }
                     IconButton(onClick = { /* Favorite */ }) {
                         Icon(
-                            imageVector = Icons.Sharp.FavoriteBorder,
-                            contentDescription = null,
+                            painter = painterResource(id = R.drawable.ic_favorite_empty),
+                            contentDescription = "favorite",
                         )
                     }
                 }
@@ -121,8 +116,10 @@ fun SongPartItem() {
                 ) {
                     IconButton(onClick = { isPlaying = !isPlaying }) {
                         Icon(
-                            imageVector = (if (isPlaying) Icons.Sharp.Settings else Icons.Sharp.PlayArrow),
-                            contentDescription = if (isPlaying) "Pause" else "Play"
+                            painter = (
+                                    if (isPlaying) painterResource(id = R.drawable.ic_pause)
+                                    else painterResource(id = R.drawable.ic_play)),
+                            contentDescription = "play pause"
                         )
                     }
                     Slider(
@@ -132,9 +129,11 @@ fun SongPartItem() {
                         enabled = true,
                         modifier = Modifier.weight(1f)
                     )
-                    IconButton(onClick = { /* Mute */ }) {
+                    IconButton(onClick = { isMute = !isMute }) {
                         Icon(
-                            imageVector = Icons.Filled.Settings,
+                            painter = (
+                                    if (isMute) painterResource(id = R.drawable.ic_audio_mute)
+                                    else painterResource(id = R.drawable.ic_audio_unmute)),
                             contentDescription = null
                         )
                     }
